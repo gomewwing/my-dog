@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer } from '@angular/core';
 
 @Component({
   selector: 'main',
@@ -7,16 +7,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainComponent implements OnInit {
 
-  constructor() { }
+
+
+  constructor(private renderer: Renderer) {
+
+    this.renderer.listenGlobal('window', 'scroll', (evt) => {
+      console.log(evt.path[1]['pageYOffset']);
+      if ( evt.path[1]['pageYOffset'] >= 284) {
+        console.log(document.getElementById('topnav'));
+      }
+    });
+  }
 
   ngOnInit() {
   }
 
-  mouseEnter(div: string) {
-    console.log(`div ${div}`);
-  }
-  mouseLeave(div: string) {
-    console.log(`div ${div}`);
-  }
 
 }
+
+
